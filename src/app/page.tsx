@@ -5,13 +5,6 @@ import SectionHeading from "@/components/layout/SectionHeading";
 
 export default function Home() {
   return (
-    <main>
-      {/*
-          Test Components
-              <StyleTest />
-              <StyleInteractionTest />
-        */}
-
       <MainLayout>
 
         {/* Hero Section */}
@@ -76,7 +69,5 @@ export default function Home() {
         </PageSection>
 
       </MainLayout>
-
-    </main>
   );
 }
