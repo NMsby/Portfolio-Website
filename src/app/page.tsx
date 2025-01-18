@@ -2,6 +2,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeading from "@/components/layout/SectionHeading";
 import Hero from "@/components/sections/hero/Hero";
+import Projects from "@/components/sections/projects/Projects";
 
 export default function Home() {
   return (
@@ -10,14 +11,7 @@ export default function Home() {
         <Hero />
 
         {/* Projects Section */}
-        <PageSection id="projects" backgroundColor="background">
-          <SectionHeading
-              title="Featured Projects"
-              subtitle="A collection of my work showcasing my skills in web development, data visualization, and software engineering."
-              align="center"
-          />
-          {/* Projects content will go here */}
-        </PageSection>
+        <Projects />
 
         {/* Skills Section */}
         <PageSection id="skills" backgroundColor="primary">
