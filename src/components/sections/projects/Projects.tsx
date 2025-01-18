@@ -19,17 +19,28 @@ interface Project {
     featured: boolean;
 }
 
+// Keyboard Interaction State
+interface KeyboardState {
+    left: boolean;
+    right: boolean;
+}
+
 // Navigation Button Component
 const NavButton: React.FC<{
     direction: 'left' | 'right',
     onClick: () => void,
-    canScroll: boolean
-}> = ({ direction, onClick, canScroll }) => (
+    canScroll: boolean,
+    isKeyPressed: boolean
+}> = ({ direction, onClick, canScroll, isKeyPressed }) => (
     <button
         onClick={onClick}
         className={`absolute ${
             direction === 'left' ? 'left-4' : 'right-4'
-        } top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg transform transition-all hover:scale-110 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#4A4E69] disabled:opacity-0 disabled:cursor-default`}
+        } top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-lg transform transition-all hover:scale-110 
+        hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#4A4E69] disabled:opacity-0 
+        disabled:cursor-default ${
+            isKeyPressed ? 'scale-110 ring-2 ring-[#4A4E69] bg-gray-50' : ''
+        }`}
         style={{ color: '#22223B' }}
         disabled={!canScroll}
         aria-label={`${ direction === 'left' ? 'Previous' : 'Next'} projects`}
@@ -118,6 +129,9 @@ const Projects = () => {
     const [progress, setProgress] = useState(0);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
+    const [keyboardState, setKeyboardState] = useState<KeyboardState>({ left: false, right: false });
+    const [projectCount, setProjectCount] = useState({ current: 1, total: projectData.length });
+    const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
 
     //Refs
     const sliderRef = useRef<HTMLDivElement>(null);
@@ -132,9 +146,9 @@ const Projects = () => {
             setCanScrollLeft(scrollLeft > 0);
             setCanScrollRight(scrollLeft < scrollWidth - clientWidth -10); // Subtract 10 for buffer
 
-            // Update current page
-            const newPage = Math.round(scrollLeft / clientWidth);
-            setCurrentPage(newPage);
+            // Update current page number
+            const currentProject = Math.floor((scrollLeft / (scrollWidth - clientWidth)) * projectData.length) + 1;
+            setProjectCount(prev => ({ ...prev, current: currentProject }))
 
             // Update progress
             const maxScroll = scrollWidth - clientWidth;
@@ -155,6 +169,7 @@ const Projects = () => {
 
     // Touch Handlers
     const handleTouchStart = (e: React.TouchEvent) => {
+        setIsAutoScrollPaused(true);
         setTouchStart(e.targetTouches[0].clientX);
     };
 
@@ -202,12 +217,31 @@ const Projects = () => {
     // Keyboard Navigation
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'ArrowLeft' && canScrollLeft) scroll('left');
-            if (e.key === 'ArrowRight' && canScrollRight) scroll('right');
+            if (e.key === 'ArrowLeft' && canScrollLeft) {
+                setKeyboardState(prev => ({...prev, left: true}));
+                scroll('left');
+            }
+            if (e.key === 'ArrowRight' && canScrollRight) {
+                setKeyboardState(prev => ({...prev, right: true}));
+                scroll('right');
+            }
+        };
+
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowLeft') {
+                setKeyboardState(prev => ({ ...prev, left: false }));
+            }
+            if (e.key === 'ArrowRight') {
+                setKeyboardState(prev => ({ ...prev, right: false }));
+            }
         };
 
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+        }
     }, [canScrollLeft, canScrollRight]);
 
     return (
@@ -223,25 +257,56 @@ const Projects = () => {
                 align="center"
             />
 
+            {/* Project Counter and Auto-scroll Status */}
+            <div className="flex justify-between items-center mb-4">
+                <div className="text-sm text-gray-600">
+                    Project {projectCount.current} of {projectCount.total}
+                </div>
+                {isAutoScrollPaused && (
+                    <div className="text-sm text-gray-600 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-gray-600"></span>
+                        Auto-scroll paused
+                    </div>
+                )}
+            </div>
+
             {/* Progress Bar */}
             <div className="w-full h-1 bg-gray-200 mb-4 rounded-full overflow-hidden">
                 <div
-                    className="h-full transition-all duration-300"
+                    className="h-full transition-all duration-300 relative"
                     style={{
                         width: `${progress}%`,
                         backgroundColor: '#4A4E69'
                     }}
-                />
+                >
+                    <div className="absolute inset-0 bg-white bg-opacity-25 animate-pulse"></div>
+                </div>
             </div>
 
             {/* Projects Slider Container */}
             <div className="relative"
-                 onMouseEnter={() => setIsHovering(true)}
-                 onMouseLeave={() => setIsHovering(false)}
+                 onMouseEnter={() => {
+                     setIsHovering(true);
+                     setIsAutoScrollPaused(true);
+                 }}
+                 onMouseLeave={() => {
+                     setIsHovering(false);
+                     setIsAutoScrollPaused(false);
+                 }}
             >
                 {/* Navigation Buttons */}
-                <NavButton direction="left" onClick={() => scroll('left')} canScroll={canScrollLeft} />
-                <NavButton direction="right" onClick={() => scroll('right')} canScroll={canScrollRight} />
+                <NavButton
+                    direction="left"
+                    onClick={() => scroll('left')}
+                    canScroll={canScrollLeft}
+                    isKeyPressed={keyboardState.left}
+                />
+                <NavButton
+                    direction="right"
+                    onClick={() => scroll('right')}
+                    canScroll={canScrollRight}
+                    isKeyPressed={keyboardState.right}
+                />
 
                 {/* Projects Slider */}
                 <div
@@ -284,7 +349,7 @@ const Projects = () => {
                         }}
                         className={`h-2 rounded-full transition-all ${
                             currentPage === index
-                                ? 'w-8 bg-primary'
+                                ? 'w-8 bg-primary md:w-12'
                                 : 'w-2 bg-gray-300 hover:bg-gray-400'
                         }`}
                         style={{
