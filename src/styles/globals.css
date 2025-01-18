@@ -57,3 +57,47 @@
     }
 }
 
+/* In src/styles/globals.css */
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.animate-wave {
+    animation: wave 2.5s infinite;
+    transform-origin: 70% 70%;
+}
+
+@keyframes bounce-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 2s infinite;
+}
+
+/* Enhanced focus styles */
+.focus-visible:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(201, 173, 167, 0.5);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .mobile-adjust {
+        font-size: 90%;
+        padding: 0.75rem !important;
+    }
+}
+

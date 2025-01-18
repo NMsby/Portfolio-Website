@@ -1,23 +1,13 @@
 import MainLayout from "@/components/layout/MainLayout";
 import PageSection from "@/components/layout/PageSection";
-import MaxWidthWrapper from "@/components/layout/MaxWidthWrapper";
 import SectionHeading from "@/components/layout/SectionHeading";
+import Hero from "@/components/sections/hero/Hero";
 
 export default function Home() {
   return (
       <MainLayout>
-
         {/* Hero Section */}
-        <PageSection
-            id="hero"
-            backgroundColor="primary"
-            containerWidth="full"
-            className="min-h-screen flex items-center"
-        >
-          <MaxWidthWrapper>
-            {/* Hero content will go here */}
-          </MaxWidthWrapper>
-        </PageSection>
+        <Hero />
 
         {/* Projects Section */}
         <PageSection id="projects" backgroundColor="background">
