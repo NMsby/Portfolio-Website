@@ -5,6 +5,7 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeading from "@/components/layout/SectionHeading";
 import ProjectCard from "@/components/sections/projects/ProjectCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import ProjectCardSkeleton from "@/components/sections/projects/ProjectCardSkeleton";
 
 // Types
 interface Project {
@@ -132,6 +133,7 @@ const Projects = () => {
     const [keyboardState, setKeyboardState] = useState<KeyboardState>({ left: false, right: false });
     const [projectCount, setProjectCount] = useState({ current: 1, total: projectData.length });
     const [isAutoScrollPaused, setIsAutoScrollPaused] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     //Refs
     const sliderRef = useRef<HTMLDivElement>(null);
@@ -244,6 +246,15 @@ const Projects = () => {
         }
     }, [canScrollLeft, canScrollRight]);
 
+    // Simulate loading effect
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1500);       // Adjust the delay as needed
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <PageSection
             id="projects"
@@ -271,17 +282,20 @@ const Projects = () => {
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-1 bg-gray-200 mb-4 rounded-full overflow-hidden">
-                <div
-                    className="h-full transition-all duration-300 relative"
-                    style={{
-                        width: `${progress}%`,
-                        backgroundColor: '#4A4E69'
-                    }}
-                >
-                    <div className="absolute inset-0 bg-white bg-opacity-25 animate-pulse"></div>
+            {!isLoading && (
+                <div className="w-full h-1 bg-gray-200 mb-4 rounded-full overflow-hidden">
+                    <div
+                        className="h-full transition-all duration-300 relative"
+                        style={{
+                            width: `${progress}%`,
+                            backgroundColor: '#4A4E69'
+                        }}
+                    >
+                        <div className="absolute inset-0 bg-white bg-opacity-25 animate-pulse"></div>
+                    </div>
                 </div>
-            </div>
+            )}
+
 
             {/* Projects Slider Container */}
             <div className="relative"
@@ -294,71 +308,91 @@ const Projects = () => {
                      setIsAutoScrollPaused(false);
                  }}
             >
+
                 {/* Navigation Buttons */}
-                <NavButton
-                    direction="left"
-                    onClick={() => scroll('left')}
-                    canScroll={canScrollLeft}
-                    isKeyPressed={keyboardState.left}
-                />
-                <NavButton
-                    direction="right"
-                    onClick={() => scroll('right')}
-                    canScroll={canScrollRight}
-                    isKeyPressed={keyboardState.right}
-                />
+                {!isLoading && (
+                    <>
+                        <NavButton
+                            direction="left"
+                            onClick={() => scroll('left')}
+                            canScroll={canScrollLeft}
+                            isKeyPressed={keyboardState.left}
+                        />
+                        <NavButton
+                            direction="right"
+                            onClick={() => scroll('right')}
+                            canScroll={canScrollRight}
+                            isKeyPressed={keyboardState.right}
+                        />
+                    </>
+                )}
 
                 {/* Projects Slider */}
                 <div
                     ref={sliderRef}
                     className="overflow-x-auto hide-scrollbar"
-                    onScroll={checkScroll}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
+                    onScroll={!isLoading ? checkScroll : undefined}
+                    onTouchStart={!isLoading ? handleTouchStart : undefined}
+                    onTouchMove={!isLoading ? handleTouchMove : undefined}
+                    onTouchEnd={!isLoading ? handleTouchEnd : undefined}
                     style={{
-                        scrollSnapType: 'x mandatory',
+                        scrollSnapType: isLoading ? 'none' : 'x mandatory',
                         scrollBehavior: 'smooth',
                     }}
                 >
                     <div className="flex gap-8 px-4">
                         {/* Project Content */}
-                        {projectData.map((project) => (
-                            <div
-                                key={project.id}
-                                className="flex-none w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-21.333px)]"
-                                style={{ scrollSnapAlign: 'start' }}
-                            >
-                                <ProjectCard {...project} />
-                            </div>
-                        ))}
+                        {isLoading ? (
+                            // Show skeletons while Loading
+                            Array(3).fill(null).map((_, index) => (
+                                <div
+                                    key={`skeleton-${index}`}
+                                    className="flex-none w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-21.333px)]"
+                                >
+                                    <ProjectCardSkeleton />
+                                </div>
+                            ))
+                        ) : (
+                            // Show actual project cards
+                            projectData.map((project) => (
+                                <div
+                                    key={project.id}
+                                    className="flex-none w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-21.333px)]"
+                                    style={{ scrollSnapAlign: 'start' }}
+                                >
+                                    <ProjectCard {...project} />
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
 
             {/* Pagination Indicators */}
-            <div className="flex justify-center gap-2 mt-4">
-                {Array.from({ length: totalPages }).map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => {
-                            if (sliderRef.current) {
-                                const scrollAmount = (sliderRef.current.clientWidth / 3) * 3 * index;
-                                sliderRef.current.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-                            }
-                        }}
-                        className={`h-2 rounded-full transition-all ${
-                            currentPage === index
-                                ? 'w-8 bg-primary md:w-12'
-                                : 'w-2 bg-gray-300 hover:bg-gray-400'
-                        }`}
-                        style={{
-                            backgroundColor: currentPage === index ? '#4A4E69' : undefined
-                        }}
-                        aria-label={`Go to page ${index + 1}`}
-                    />
-                ))}
-            </div>
+            {!isLoading && (
+                <div className="flex justify-center gap-2 mt-4">
+                    {Array.from({length: totalPages}).map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => {
+                                if (sliderRef.current) {
+                                    const scrollAmount = (sliderRef.current.clientWidth / 3) * 3 * index;
+                                    sliderRef.current.scrollTo({left: scrollAmount, behavior: 'smooth'});
+                                }
+                            }}
+                            className={`h-2 rounded-full transition-all ${
+                                currentPage === index
+                                    ? 'w-8 bg-primary md:w-12'
+                                    : 'w-2 bg-gray-300 hover:bg-gray-400'
+                            }`}
+                            style={{
+                                backgroundColor: currentPage === index ? '#4A4E69' : undefined
+                            }}
+                            aria-label={`Go to page ${index + 1}`}
+                        />
+                    ))}
+                </div>
+            )}
         </PageSection>
     );
 };

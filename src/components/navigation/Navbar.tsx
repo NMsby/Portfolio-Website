@@ -8,7 +8,7 @@ import { useScrollSpy } from "@/hooks/useScrollSpy";
 const navigationItems = [
     { label: 'Home', href: '#hero', id: 'hero' },
     { label: 'Projects', href: '#projects', id: 'projects' },
-    { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Education', href: '#education', id: 'education' },
     { label: 'About', href: '#about', id: 'about' },
     { label: 'Contact', href: '#contact', id: 'contact' },
 ]

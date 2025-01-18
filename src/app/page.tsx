@@ -3,6 +3,7 @@ import PageSection from "@/components/layout/PageSection";
 import SectionHeading from "@/components/layout/SectionHeading";
 import Hero from "@/components/sections/hero/Hero";
 import Projects from "@/components/sections/projects/Projects";
+import Education from "@/components/sections/education/Education";
 
 export default function Home() {
   return (
@@ -13,15 +14,8 @@ export default function Home() {
         {/* Projects Section */}
         <Projects />
 
-        {/* Skills Section */}
-        <PageSection id="skills" backgroundColor="primary">
-          <SectionHeading
-              title="Skills & Expertise"
-              subtitle="A comprehensive overview of my technical skills and development expertise"
-              align="center"
-          />
-          {/* Skills content will go here */}
-        </PageSection>
+        {/* Education Section */}
+        <Education />
 
         {/* About Section */}
         <PageSection id="about" backgroundColor="background">
