@@ -74,7 +74,7 @@ const Navbar = () => {
                             onClick={(e) => scrollToSection(e, '#hero')}
                             className="text-xl font-primary font-bold text-background relative z-50"
                         >
-                            Nelson Masbayi Muyodi
+                            My Portfolio
                         </a>
 
                         {/* Desktop Navigation */}

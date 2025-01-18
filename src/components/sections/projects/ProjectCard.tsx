@@ -34,7 +34,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                     alt={`Screenshot of ${title}`}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     onError={(e) => {
-                        e.currentTarget.src = '/pi/placeholder/600/400';        // Add fallback image
+                        e.currentTarget.src = 'https://placehold.co/600x400';        // Add fallback image
                         e.currentTarget.alt = 'Project thumbnail placeholder';       // Add fallback alt text
                     }}
                 />
@@ -112,14 +112,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 </div>
             </div>
 
-            {/* Featured Badge */}
-            {featured && (
-                <div className="absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium"
-                    style={{backgroundColor: '#C9ADA7', color: '#22223B'}}
-                >
-                    Featured
-                </div>
-            )}
+            {/*/!* Featured Badge *!/*/}
+            {/*{featured && (*/}
+            {/*    <div className="absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium"*/}
+            {/*        style={{backgroundColor: '#C9ADA7', color: '#22223B'}}*/}
+            {/*    >*/}
+            {/*        Featured*/}
+            {/*    </div>*/}
+            {/*)}*/}
         </article>
     );
 };
