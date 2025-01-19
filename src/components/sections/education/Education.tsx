@@ -4,7 +4,7 @@ import React from 'react';
 import PageSection from "@/components/layout/PageSection";
 import SectionHeading from "@/components/layout/SectionHeading";
 import EducationTimeline from "@/components/sections/education/EducationTimeline";
-import CertificatesGrid from "@/components/sections/education/CertificatesGrid";
+import CertificatesGrid from "@/components/sections/education/certificates/CertificatesGrid";
 
 const Education = () => {
     return (
