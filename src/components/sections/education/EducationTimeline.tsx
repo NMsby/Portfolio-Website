@@ -7,7 +7,7 @@ interface Education {
     degree: string;
     institution: string;
     duration: string;
-    achievements: string[];
+    achievements?: string[];
     major?: string[];
     gpa?: string;
 }
@@ -17,7 +17,7 @@ const educationData: Education[] = [
         id: '1',
         degree: 'Bachelor of Science in Informatics & Computer Science',
         institution: 'Strathmore University',
-        duration: '2021 - 2025',
+        duration: '2021 - 2025 (Expected Graduation)',
         major: [
             'Computer Programming',
             'Software Engineering',
@@ -29,7 +29,20 @@ const educationData: Education[] = [
             'Upper Second Class Honours',
             'Dean\'s List Recognition',
         ],
-        gpa: '3.5/4.0'
+        gpa: ''
+    },
+    {
+        id: '2',
+        degree: 'Kenya Certificate of Secondary Education',
+        institution: 'Strathmore School',
+        duration: '2016 - 2019',
+        major: [
+            'Maths',
+            'English',
+            'Computer Studies',
+        ],
+        achievements: undefined,
+        gpa: 'B+'
     },
     // Add more education data as needed
 ];
@@ -113,7 +126,7 @@ const EducationTimeline: React.FC = () => {
                                 </p>
                                 {education.gpa && (
                                     <p className="text-sm font-medium" style={{color: '#4A4E69'}}>
-                                        GPA: {education.gpa}
+                                        Grade: {education.gpa}
                                     </p>
                                 )}
                             </div>
@@ -126,7 +139,7 @@ const EducationTimeline: React.FC = () => {
                                 {education.major && (
                                     <div className="mb-2">
                                         <h5 className="text-sm font-semibold mb-2" style={{color: '#22223B'}}>
-                                            Major Courses
+                                            Relevant Coursework
                                         </h5>
                                         <div className="flex flex-wrap gap-2">
                                             {education.major.map((course, index) => (
@@ -143,33 +156,35 @@ const EducationTimeline: React.FC = () => {
                                 )}
 
                                 {/* Achievements */}
-                                <div>
-                                    <h5 className="text-sm font-semibold mb-2" style={{color: '#22223B'}}>
-                                        Achievements
-                                    </h5>
-                                    <ul className="space-y-2">
-                                        {education.achievements.map((achievement, index) => (
-                                            <li
-                                                key={index}
-                                                className={`flex items-start gap-2 text-sm transition-all duration-300 ${
-                                                    hoveredAchievement === index ? 'translate-x-2' : ''
-                                                }`}
-                                                style={{color: '#4A4E69'}}
-                                                onMouseEnter={() => setHoveredAchievement(index)}
-                                                onMouseLeave={() => setHoveredAchievement(null)}
-                                            >
-                                                <Award
-                                                    size={16}
-                                                    className={`mt-1 flex-shrink-0 transition-transform ${
-                                                        hoveredAchievement === index ? 'scale-110' : ''
+                                {education.achievements && (
+                                    <div>
+                                        <h5 className="text-sm font-semibold mb-2" style={{color: '#22223B'}}>
+                                            Achievements
+                                        </h5>
+                                        <ul className="space-y-2">
+                                            {education.achievements.map((achievement, index) => (
+                                                <li
+                                                    key={index}
+                                                    className={`flex items-start gap-2 text-sm transition-all duration-300 ${
+                                                        hoveredAchievement === index ? 'translate-x-2' : ''
                                                     }`}
-                                                    style={{color: '#9A8C98'}}
-                                                />
-                                                {achievement}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+                                                    style={{color: '#4A4E69'}}
+                                                    onMouseEnter={() => setHoveredAchievement(index)}
+                                                    onMouseLeave={() => setHoveredAchievement(null)}
+                                                >
+                                                    <Award
+                                                        size={16}
+                                                        className={`mt-1 flex-shrink-0 transition-transform ${
+                                                            hoveredAchievement === index ? 'scale-110' : ''
+                                                        }`}
+                                                        style={{ color: '#9A8C98' }}
+                                                    />
+                                                    {achievement}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ import React from 'react';
 import PageSection from "@/components/layout/PageSection";
 import SectionHeading from "@/components/layout/SectionHeading";
 import EducationTimeline from "@/components/sections/education/EducationTimeline";
+import CertificatesGrid from "@/components/sections/education/CertificatesGrid";
 
 const Education = () => {
     return (
@@ -22,7 +23,8 @@ const Education = () => {
             {/* Education Timeline */}
             <EducationTimeline />
 
-            {/* Certificates Section */}
+            {/* Certificates Grid */}
+            <CertificatesGrid />
 
         </PageSection>
     );
