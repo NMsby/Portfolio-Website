@@ -54,8 +54,8 @@ const NavButton: React.FC<{
 const projectData: Project[] = [
     {
         id: '1',
-        title: 'E-Commerce Platform',
-        description: 'A full-stack e-commerce solution with real-time inventory management and secure payment processing.',
+        title: 'BomaCare',
+        description: 'A Web-Based Platform Connecting Domestic Workers with Clients for Quality Homecare Services in Nairobi.',
         image: '/api/placeholder/600/400', // We'll replace with actual image later
         technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
         category: 'Full Stack',
@@ -66,7 +66,7 @@ const projectData: Project[] = [
     // Add more projects...
     {
         id: '2',
-        title: 'E-Commerce Platform',
+        title: 'My Portfolio Website',
         description: 'A full-stack e-commerce solution with real-time inventory management and secure payment processing.',
         image: '/api/placeholder/600/400', // We'll replace with actual image later
         technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
@@ -77,7 +77,7 @@ const projectData: Project[] = [
     },
     {
         id: '3',
-        title: 'E-Commerce Platform',
+        title: 'PECMA Hardware Stores',
         description: 'A full-stack e-commerce solution with real-time inventory management and secure payment processing.',
         image: '/api/placeholder/600/400', // We'll replace with actual image later
         technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
@@ -88,8 +88,8 @@ const projectData: Project[] = [
     },
     {
         id: '4',
-        title: 'E-Commerce Platform',
-        description: 'A full-stack e-commerce solution with real-time inventory management and secure payment processing.',
+        title: 'eLinda',
+        description: 'E-Linda is a chatbot for women’s safety, providing real-time tips, legal guidance, and emergency support. Accessible anytime, it offers location-based alerts and check-ins, helping women stay safe and empowered.',
         image: '/api/placeholder/600/400', // We'll replace with actual image later
         technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
         category: 'Full Stack',
@@ -99,8 +99,8 @@ const projectData: Project[] = [
     },
     {
         id: '5',
-        title: 'E-Commerce Platform',
-        description: 'A full-stack e-commerce solution with real-time inventory management and secure payment processing.',
+        title: 'Malaika',
+        description: 'A mobile application empowering university students to overcome mental health challenges and maintain sobriety.',
         image: '/api/placeholder/600/400', // We'll replace with actual image later
         technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
         category: 'Full Stack',
@@ -110,8 +110,30 @@ const projectData: Project[] = [
     },
     {
         id: '6',
-        title: 'E-Commerce Platform',
-        description: 'A full-stack e-commerce solution with real-time inventory management and secure payment processing.',
+        title: 'Vauxible',
+        description: 'A text-to-speech audiobook mobile application to assist users with visual impairment ',
+        image: '/api/placeholder/600/400', // We'll replace with actual image later
+        technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+        category: 'Full Stack',
+        githubUrl: 'https://github.com/yourusername/project',
+        liveUrl: 'https://project-demo.com',
+        featured: true
+    },
+    {
+        id: '7',
+        title: 'Ecommerce Platform',
+        description: 'FullStack Ecommerce Web Application with Django REST API Framework and React',
+        image: '/api/placeholder/600/400', // We'll replace with actual image later
+        technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+        category: 'Full Stack',
+        githubUrl: 'https://github.com/yourusername/project',
+        liveUrl: 'https://project-demo.com',
+        featured: true
+    },
+    {
+        id: '8',
+        title: 'BrickBreaker Game',
+        description: 'A text-to-speech audiobook mobile application to assist users with visual impairment ',
         image: '/api/placeholder/600/400', // We'll replace with actual image later
         technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
         category: 'Full Stack',

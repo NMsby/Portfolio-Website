@@ -311,7 +311,7 @@ const Hero = () => {
                                     onMouseEnter={() => setHoveredCard('experience')}
                                     onMouseLeave={() => setHoveredCard(null)}
                                 >
-                                    <span className="text-4xl font-bold" style={{ color: '#22223B' }}>3+</span>
+                                    <span className="text-4xl font-bold" style={{ color: '#22223B' }}>2+</span>
                                     <span className="text-sm font-semibold mt-2" style={{ color: '#22223B' }}>
                                         Years of Coding Experience
                                     </span>
