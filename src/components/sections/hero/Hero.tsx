@@ -35,7 +35,7 @@ const Hero = () => {
     const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
     const [loadingStates, setLoadingStates] = useState<{ [key: string]: boolean }>({});
     const [announcement, setAnnouncement] = useState('');
-    const [deviceType, setDeviceType] = useState<'mobile' | 'desktop'>('desktop');
+    const [, setDeviceType] = useState<'mobile' | 'desktop'>('desktop');
 
     // Refs
     const contentRef = useRef<HTMLDivElement>(null);

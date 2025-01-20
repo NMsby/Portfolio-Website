@@ -5,6 +5,7 @@ import Hero from "@/components/sections/hero/Hero";
 import Projects from "@/components/sections/projects/Projects";
 import Education from "@/components/sections/education/Education";
 import Experience from "@/components/sections/experience/Experience";
+import About from "@/components/sections/about/About";
 
 export default function Home() {
   return (
@@ -22,14 +23,7 @@ export default function Home() {
         <Education />
 
         {/* About Section */}
-        <PageSection id="about" backgroundColor="background">
-            <SectionHeading
-                title="About Me"
-                subtitle="Get to know more about my journey and experience"
-                align="center"
-            />
-            {/* About content will go here */}
-        </PageSection>
+        <About />
 
         {/* Contact Section */}
         <PageSection id="contact" backgroundColor="primary">

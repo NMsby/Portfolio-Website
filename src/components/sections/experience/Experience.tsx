@@ -233,14 +233,14 @@ const Experience = () => {
 
             {isLoading ? (
                 // Loading Skeleton
-                <div className="mt-8 space-y-4">
+                <div className="mt-4 space-y-4">
                     <div className="h-8 bg-gray-200 rounded-lg animate-pulse"/>
                     <div className="h-24 bg-gray-200 rounded-lg animate-pulse"/>
                 </div>
             ) : (
                 <>
                     {/* Timeline Navigation */}
-                    <div className="relative mt-8 px-4 md:px-0">
+                    <div className="relative mt-2 px-4 md:px-0">
                         <button
                             onClick={() => scroll('left')}
                             className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full 
@@ -315,7 +315,7 @@ const Experience = () => {
                     </div>
 
                     {/* Progress Indicators */}
-                    <div className="flex justify-center gap-2 mt-4">
+                    <div className="flex justify-center gap-2 mt-2">
                         {experiences.map((_, index) => (
                             <button
                                 key={index}
@@ -335,133 +335,130 @@ const Experience = () => {
                     </div>
 
                     {/* Experience Details */}
+                    <AnimatePresence initial={false} custom={direction}>
+                        {experiences.map((exp) => (
+                            exp.id === activeExperience && (
+                                <motion.div
+                                    key={exp.id}
+                                    custom={direction}
+                                    variants={timelineVariants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    transition={{
+                                        x: { type: "spring", stiffness: 300, damping: 30 },
+                                        opacity: { duration: 0.2 }
+                                    }}
+                                    className="mt-8 bg-white rounded-lg shadow-lg p-6 overflow-hidden"
+                                >
+                                    <motion.div
+                                        className="space-y-4"
+                                        whileHover={{ scale: 1.01 }}
+                                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                    >
+                                        {/* Role and Company */}
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <h3 className="text-xl font-semibold"
+                                                    style={{ color: '#22223B' }}
+                                                >
+                                                    {exp.role}
+                                                </h3>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <Building2 size={16} className="text-[#9A8C98]" />
+                                                    <span className="text-[#4A4E69]">
+                                                        {exp.company}
+                                                    </span>
+                                                    {exp.companyUrl && (
+                                                        <a
+                                                            href={exp.companyUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="text-[#4A4E69] hover:text-[#22223B]"
+                                                        >
+                                                            <ExternalLink size={16} />
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <span
+                                                className="px-3 py-1 rounded-full text-sm"
+                                                style={{
+                                                    backgroundColor: '#4A4E69',
+                                                    color: '#F2E9E4'
+                                                }}
+                                            >
+                                                {exp.type}
+                                            </span>
+                                        </div>
 
+                                        {/* Duration and Location */}
+                                        <div className="flex gap-4 text-sm text-[#9A8C98]">
+                                            <div className="flex items-center gap-1">
+                                                <Calendar size={16} />
+                                                <span>
+                                                    {exp.duration.start} - {exp.duration.end}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <MapPin size={16} />
+                                                <span>{exp.location}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Description */}
+                                        <ul className="space-y-2 list-disc list-inside text-[#4A4E69]">
+                                            {exp.description.map((item, index) => (
+                                                <li key={index}>{item}</li>
+                                            ))}
+                                        </ul>
+
+                                        {/* Technologies */}
+                                        <motion.div
+                                            className="flex flex-wrap gap-2"
+                                            initial="hidden"
+                                            animate="visible"
+                                            variants={{
+                                                visible: {
+                                                    transition: {
+                                                        staggerChildren: 0.05
+                                                    }
+                                                }
+                                            }}
+                                        >
+                                            {exp.technologies.map((tech, index) => (
+                                                <motion.span
+                                                    key={index}
+                                                    variants={{
+                                                        hidden: { opacity: 0, scale: 0.8 },
+                                                        visible: { opacity: 1, scale: 1}
+                                                    }}
+                                                    whileHover={{ scale: 1.1 }}
+                                                    className="px-3 py-1 rounded-full text-sm"
+                                                    style={{
+                                                        backgroundColor: 'rgba(74, 78, 105, 0.1)',
+                                                        color: '#4A4E69'
+                                                    }}
+                                                >
+                                                    {tech}
+                                                </motion.span>
+                                            ))}
+                                        </motion.div>
+
+                                        {/* Progress Indicator */}
+                                        <motion.div
+                                            className="absolute bottom-0 left-0 h-1 bg-[#4A4E69]"
+                                            initial={{ width: "0%" }}
+                                            animate={{ width: "100%" }}
+                                            transition={{ duration: 5 }}
+                                        />
+                                    </motion.div>
+                                </motion.div>
+                            )
+                        ))}
+                    </AnimatePresence>
                 </>
             )}
-
-            {/* Experience Details */}
-            <AnimatePresence initial={false} custom={direction}>
-                {experiences.map((exp) => (
-                    exp.id === activeExperience && (
-                        <motion.div
-                            key={exp.id}
-                            custom={direction}
-                            variants={timelineVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{
-                                x: { type: "spring", stiffness: 300, damping: 30 },
-                                opacity: { duration: 0.2 }
-                            }}
-                            className="mt-8 bg-white rounded-lg shadow-lg p-6 overflow-hidden"
-                        >
-                            <motion.div
-                                className="space-y-4"
-                                whileHover={{ scale: 1.01 }}
-                                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                            >
-                                {/* Role and Company */}
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h3 className="text-xl font-semibold"
-                                            style={{ color: '#22223B' }}
-                                        >
-                                            {exp.role}
-                                        </h3>
-                                        <div className="flex items-center gap-2 mt-1">
-                                            <Building2 size={16} className="text-[#9A8C98]" />
-                                            <span className="text-[#4A4E69]">
-                                                {exp.company}
-                                            </span>
-                                            {exp.companyUrl && (
-                                                <a
-                                                    href={exp.companyUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-[#4A4E69] hover:text-[#22223B]"
-                                                >
-                                                    <ExternalLink size={16} />
-                                                </a>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <span
-                                        className="px-3 py-1 rounded-full text-sm"
-                                        style={{
-                                            backgroundColor: '#4A4E69',
-                                            color: '#F2E9E4'
-                                        }}
-                                    >
-                                        {exp.type}
-                                    </span>
-                                </div>
-
-                                {/* Duration and Location */}
-                                <div className="flex gap-4 text-sm text-[#9A8C98]">
-                                    <div className="flex items-center gap-1">
-                                        <Calendar size={16} />
-                                        <span>
-                                            {exp.duration.start} - {exp.duration.end}
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <MapPin size={16} />
-                                        <span>{exp.location}</span>
-                                    </div>
-                                </div>
-
-                                {/* Description */}
-                                <ul className="space-y-2 list-disc list-inside text-[#4A4E69]">
-                                    {exp.description.map((item, index) => (
-                                        <li key={index}>{item}</li>
-                                    ))}
-                                </ul>
-
-                                {/* Technologies */}
-                                <motion.div
-                                    className="flex flex-wrap gap-2"
-                                    initial="hidden"
-                                    animate="visible"
-                                    variants={{
-                                        visible: {
-                                            transition: {
-                                                staggerChildren: 0.05
-                                            }
-                                        }
-                                    }}
-                                >
-                                    {exp.technologies.map((tech, index) => (
-                                        <motion.span
-                                            key={index}
-                                            variants={{
-                                                hidden: { opacity: 0, scale: 0.8 },
-                                                visible: { opacity: 1, scale: 1}
-                                            }}
-                                            whileHover={{ scale: 1.1 }}
-                                            className="px-3 py-1 rounded-full text-sm"
-                                            style={{
-                                                backgroundColor: 'rgba(74, 78, 105, 0.1)',
-                                                color: '#4A4E69'
-                                            }}
-                                        >
-                                            {tech}
-                                        </motion.span>
-                                    ))}
-                                </motion.div>
-
-                                {/* Progress Indicator */}
-                                <motion.div
-                                    className="absolute bottom-0 left-0 h-1 bg-[#4A4E69]"
-                                    initial={{ width: "0%" }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ duration: 5 }}
-                                />
-                            </motion.div>
-                        </motion.div>
-                    )
-                ))}
-            </AnimatePresence>
         </PageSection>
     );
 };
