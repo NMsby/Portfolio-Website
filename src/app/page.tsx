@@ -6,6 +6,7 @@ import Education from "@/components/sections/education/Education";
 import Experience from "@/components/sections/experience/Experience";
 import About from "@/components/sections/about/About";
 import Contact from "@/components/sections/contact/Contact";
+import Footer from "@/components/sections/footer/Footer";
 
 export default function Home() {
   return (
@@ -29,13 +30,7 @@ export default function Home() {
         <Contact />
 
         {/* Footer Section */}
-        <PageSection
-            backgroundColor="background"
-            containerWidth="full"
-            className="py-8"
-        >
-          {/* Footer content will go here */}
-        </PageSection>
+        <Footer />
 
       </MainLayout>
   );
