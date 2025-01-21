@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useState, useEffect, useRef, JSX} from 'react';
-import { Code, Terminal, Database, Github, LinkedinIcon, ArrowDown } from 'lucide-react';
+import {Code, Terminal, Database, Github, LinkedinIcon, ArrowDown, Award} from 'lucide-react';
 import PageSection from '@/components/layout/PageSection';
 
 // Types
@@ -56,6 +56,13 @@ const Hero = () => {
             url: "https://www.linkedin.com/in/nmsby/",
             tooltip: "Connect on LinkedIn",
             label: "LinkedIn Profile"
+        },
+        {
+            platform: 'Credly',
+            icon: Award,
+            url: "https://www.credly.com/users/nmsby",
+            tooltip: "View my digital badges",
+            label: "Credly Badges"
         }
     ];
 
@@ -229,20 +236,22 @@ const Hero = () => {
 
                                     {/* CTA Buttons */}
                                     <div className="flex flex-wrap gap-3 pt-3">
-                                        <button
+                                        <a
+                                            href="/assets/Nelson%20Masbayi%20Muyodi%20CV.pdf"
+                                            target="_blank"
                                             className="group px-5 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C9ADA7]"
                                             style={{
                                                 backgroundColor: '#C9ADA7',
                                                 color: '#22223B',
                                             }}
-                                            tabIndex={0}
                                         >
-                                            <span className="relative z-10">View Projects</span>
+                                            <span className="relative z-10">View Resume</span>
                                             <div
                                                 className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"
                                             />
-                                        </button>
-                                        <button
+                                        </a>
+                                        <a
+                                            href="#contact"
                                             className="group px-5 py-2 rounded-lg font-semibold border-2 transition-all duration-300 hover:scale-105 relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C9ADA7]"
                                             style={{
                                                 borderColor: '#C9ADA7',
@@ -254,7 +263,7 @@ const Hero = () => {
                                             <div
                                                 className="absolute inset-0 bg-[#C9ADA7] opacity-0 group-hover:opacity-10 transition-opacity duration-300"
                                             />
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
