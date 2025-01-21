@@ -1,5 +1,6 @@
 import React from 'react';
 import {ExternalLink, Github} from "lucide-react";
+import Image from "next/image";
 
 // Types
 interface ProjectCardProps {
@@ -10,7 +11,7 @@ interface ProjectCardProps {
     category: string;
     githubUrl?: string;
     liveUrl?: string;
-    featured: boolean;
+    featured?: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -20,8 +21,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     technologies,
     category,
     githubUrl,
-    liveUrl,
-    featured
+    liveUrl
 }) => {
     return (
         <article className="bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-[#4A4E69]"
@@ -29,7 +29,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         >
             {/* Project Image */}
             <div className="relative h-48 overflow-hidden group">
-                <img
+                <Image
                     src={image}
                     alt={`Screenshot of ${title}`}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"

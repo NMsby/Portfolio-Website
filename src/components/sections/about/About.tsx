@@ -46,7 +46,7 @@ interface AboutData {
 
 // Sample data - replace with your actual data
 const aboutData: AboutData = {
-    profileImage: "https://placehold.co/400x400", // Replace with your image path
+    profileImage: "/assets/images/profile.jpg", // Replace with your image path
     quote: "The only way to do great work is to love what you do",
     languages: [
         { name: "English", proficiency: "Fluent" },

@@ -67,7 +67,6 @@ const Contact = () => {
         message: ''
     });
     const [isLoading, setIsLoading] = useState(false);
-    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
     const [errors, setErrors] = useState<Partial<ContactFormData>>({});
     const [charCount, setCharCount] = useState(0);
     const [formFeedback, setFormFeedback] = useState<FormFeedback | null>(null);
@@ -141,6 +140,7 @@ const Contact = () => {
             // Reset form
             setFormData({ name:'', email: '', message: ''});
             setCharCount(0);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             setFormFeedback({
                 message: 'Failed to send message. Please try again.',

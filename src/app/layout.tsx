@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { Inter, Open_Sans } from "next/font/google";
+import React from "react";
 
 // Font Setup
 const inter = Inter({

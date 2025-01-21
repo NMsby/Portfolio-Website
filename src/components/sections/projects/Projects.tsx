@@ -145,7 +145,7 @@ const projectData: Project[] = [
 
 const Projects = () => {
     // State
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage] = useState(0);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
     const [isHovering, setIsHovering] = useState(false);

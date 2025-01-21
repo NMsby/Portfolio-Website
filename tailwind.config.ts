@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: [
@@ -21,9 +20,9 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        // Our typography configuration
-        primary: ["var(--font-primary)", ...fontFamily.sans],
-        secondary: ["var(--font-secondary)", ...fontFamily.sans],
+        // Updated font family configuration
+        primary: ["var(--font-inter)", "sans-serif"],
+        secondary: ["var(--font-open-sans)", "sans-serif"],
       },
       fontSize: {
         // Custom font sizes if needed
