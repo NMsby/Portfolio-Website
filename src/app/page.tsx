@@ -1,5 +1,4 @@
 import MainLayout from "@/components/layout/MainLayout";
-import PageSection from "@/components/layout/PageSection";
 import Hero from "@/components/sections/hero/Hero";
 import Projects from "@/components/sections/projects/Projects";
 import Education from "@/components/sections/education/Education";
