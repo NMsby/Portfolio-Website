@@ -3,6 +3,7 @@
 //
 import React, { useState, JSX, useRef} from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import {
     Book,
     ChevronLeft,
@@ -145,13 +146,14 @@ const About = () => {
                             {!imageLoaded && (
                             <div className="absolute inset-0 bg-gray-200 animate-pulse" />
                             )}
-                            <motion.img
+                            <Image
                                 src={aboutData.profileImage}
                                 alt="Profile"
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 className="w-full h-full object-cover"
                                 onLoad={() => setImageLoaded(true)}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: imageLoaded ? 1 : 0 }}
+                                priority
                             />
                         </div>
                     </div>
