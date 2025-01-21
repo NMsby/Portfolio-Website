@@ -1,3 +1,5 @@
+// noinspection XmlDeprecatedElement
+
 "use client";
 
 import React, {JSX, useState} from 'react';
