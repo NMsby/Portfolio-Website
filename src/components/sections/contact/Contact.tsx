@@ -35,25 +35,25 @@ interface SocialLink {
 const socialLinks: SocialLink[] = [
     {
         platform: 'GitHub',
-        icon: <Github size={20} />,
+        icon: <Github size={20} className="text-[#C9ADA7]" />,
         url: 'https://github.com/NMsby',
         color: '#F2E9E4'
     },
     {
         platform: 'LinkedIn',
-        icon: <Linkedin size={20} />,
+        icon: <Linkedin size={20} className="text-[#C9ADA7]" />,
         url: 'https://linkedin.com/in/nmsby',
         color: '#0A66C2'
     },
     {
         platform: 'Credly',
-        icon: <Award size={20} />,
+        icon: <Award size={20} className="text-[#C9ADA7]" />,
         url: 'https://www.credly.com/users/nmsby',
         color: '#FF6B00'
     },
     {
         platform: 'Twitter',
-        icon: <Twitter size={20} />,
+        icon: <Twitter size={20} className="text-[#C9ADA7]" />,
         url: 'https://twitter.com/yourusername',
         color: '#1DA1F2'
     }
@@ -73,6 +73,7 @@ const Contact = () => {
     const [formFeedback, setFormFeedback] = useState<FormFeedback | null>(null);
     const maxMessageLength = 500;
     const [copiedField, setCopiedField] = useState<'email' | 'phone' | null>(null);
+    const [activeToolTip, setActiveToolTip] = useState<string | null>(null);
 
     // Copy Function
     const copyToClipboard = async (text: string, field: 'email' | 'phone') => {
@@ -402,24 +403,39 @@ const Contact = () => {
                                 Connect With Me
                             </h3>
                             <div className="flex flex-wrap gap-3">
-                            {socialLinks.map((social) => (
-                                    <motion.a
+                                {socialLinks.map((social) => (
+                                    <div
                                         key={social.platform}
-                                        href={social.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-3 rounded-lg transition-all duration-300 hover:scale-110"
-                                        style={{ backgroundColor: 'rgba(201, 173, 167, 0.1)' }}
-                                        whileHover={{
-                                            scale: 1.1,
-                                            backgroundColor: `rgba(${social.color}, 0.1)`
-                                        }}
-                                        aria-label={`Visit my ${social.platform} profile`}
+                                        className="relative"
+                                        onMouseEnter={() => setActiveToolTip(social.platform)}
+                                        onMouseLeave={() => setActiveToolTip(null)}
                                     >
-                                        <span style={{ color: '#C9ADA7' }}>
+                                        <motion.a
+                                            href={social.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="p-3 rounded-lg transition-all duration-300 hover:scale-110 block"
+                                            style={{ backgroundColor: 'rgba(201, 173, 167, 0.1)' }}
+                                            whileHover={{
+                                                scale: 1.1,
+                                                backgroundColor: `rgba(${social.color}, 0.1)`
+                                            }}
+                                            aria-label={`Visit my ${social.platform} profile`}
+                                        >
                                             {social.icon}
-                                        </span>
-                                    </motion.a>
+                                        </motion.a>
+
+                                        {/*  Tooltip  */}
+                                        {activeToolTip === social.platform && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 5 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded text-xs whitespace-nowrap bg-[#4A4E69] text-[#F2E9E4]"
+                                            >
+                                                {social.platform}
+                                            </motion.div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
                         </div>
