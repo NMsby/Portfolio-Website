@@ -1,11 +1,10 @@
-// noinspection XmlDeprecatedElement
-
 "use client";
 
 import React, {JSX, useState} from 'react';
 import { motion } from 'framer-motion';
 import {
     Mail, MapPin, Send, Loader2, Phone,
+    Copy, Check,
     Github, Linkedin, Twitter, Award,
     AlertCircle, CheckCircle
 } from 'lucide-react';
@@ -73,6 +72,18 @@ const Contact = () => {
     const [charCount, setCharCount] = useState(0);
     const [formFeedback, setFormFeedback] = useState<FormFeedback | null>(null);
     const maxMessageLength = 500;
+    const [copiedField, setCopiedField] = useState<'email' | 'phone' | null>(null);
+
+    // Copy Function
+    const copyToClipboard = async (text: string, field: 'email' | 'phone') => {
+        try {
+            await navigator.clipboard.writeText(text);
+            setCopiedField(field);
+            setTimeout(() => setCopiedField(null), 2000);
+        } catch (error) {
+            console.error('Failed to copy text:', error);
+        }
+    };
 
     // Validation Function
     const validateForm = () => {
@@ -313,28 +324,61 @@ const Contact = () => {
                     >
                         <div className="bg-[#2D2D45] p-6 rounded-lg space-y-4">
                             {/* Email */}
-                            <div className="flex items-start gap-4">
+                            <div className="flex items-start gap-4 group">
                                 <Mail className="flex-shrink-0" size={24} style={{color: '#C9ADA7'}}/>
-                                <div>
+                                <div className="flex-grow">
                                     <h3 className="font-medium" style={{color: '#F2E9E4'}}>
                                         Email
                                     </h3>
-                                    <p style={{color: '#9A8C98'}}>
-                                        nelsonmasbayi@gmail.com
-                                    </p>
+                                    <div className="flex items-center gap-2">
+                                        <a
+                                            href="mailto:nelsonmasbayi@gmail.com"
+                                            className="hover:underline"
+                                            style={{color: '#9A8C98'}}
+                                        >
+                                            nelsonmasbayi@gmail.com
+                                        </a>
+                                        <button
+                                            onClick={() => copyToClipboard('nelsonmasbayi@gmail.com', 'email')}
+                                            className="p-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                            title="Copy email address"
+                                        >
+                                            {copiedField === 'email' ? (
+                                                <Check size={16} className={`text-green-500`} />
+                                            ) : (
+                                                <Copy size={16} className={`text-[#C9ADA7]`} />
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Phone Number */}
-                            <div className="flex items-start gap-4">
+                            <div className="flex items-start gap-4 group">
                                 <Phone className="flex-shrink-0" size={24} style={{color: '#C9ADA7'}}/>
-                                <div>
+                                <div className="flex-grow">
                                     <h3 className="font-medium" style={{color: '#F2E9E4'}}>
                                         Phone
                                     </h3>
-                                    <p style={{color: '#9A8C98'}}>
-                                        +254 759 792595
-                                    </p>
+                                    <div className="flex items-center gap-2">
+                                        <a
+                                            href="tel:+254759792595"
+                                            className="hover: underline"
+                                            style={{color: '#9A8C98'}}>
+                                            +254 759 792595
+                                        </a>
+                                        <button
+                                            onClick={() => copyToClipboard('+254700000000', 'phone')}
+                                            className="p-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                            title="Copy phone number"
+                                        >
+                                            {copiedField === 'phone' ? (
+                                                <Check size={16} className="text-green-500" />
+                                            ) : (
+                                                <Copy size={16} style={{ color: '#C9ADA7' }} />
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
